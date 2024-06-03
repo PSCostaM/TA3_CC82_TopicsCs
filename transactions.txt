@@ -1,0 +1,8 @@
+leche,pan,mantequilla
+pan,mantequilla
+leche,pan
+leche,mantequilla
+leche,pan,mantequilla
+pan
+leche,pan
+
