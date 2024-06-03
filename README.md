@@ -64,7 +64,112 @@ Para el desarrollo de este problema y la correcta implementación de constraint 
   ```
   Este diccionario muestra que el ítem "leche" aparece en 4 transacciones, "pan" en 5 transacciones, y así sucesivamente. Los subconjuntos como {'leche', 'pan'} aparecen en 4 transacciones, cumpliendo con el soporte mínimo especificado.
 
-  <li> </li>
+  <li> Implementar la búsqueda de reglas de asociación usando constraint
+programming </li>
+
+![image](https://github.com/PSCostaM/TA3_CC82_TopicsCs/assets/48858434/96ff3195-42b9-4ba7-be82-b1e2877b9d74)
+
+<li>Explique su implementación reglas de asociación y proporcione ejemplos.</li>
+
+La función get_association_rules tiene como objetivo generar todas las posibles reglas de asociación a partir de los itemsets frecuentes y determinar cuáles de esas reglas cumplen con un umbral mínimo de confianza.
+
+Supongamos que tenemos los siguientes itemsets frecuentes y un umbral de confianza de 0.6:
+
+```
+frequent_itemsets = {
+    frozenset({'leche', 'pan'}): 4,
+    frozenset({'leche'}): 5,
+    frozenset({'pan'}): 5,
+    frozenset({'mantequilla'}): 3,
+    frozenset({'leche', 'mantequilla'}): 2,
+    frozenset({'pan', 'mantequilla'}): 2
+}
+
+transactions = [
+    frozenset(['leche', 'pan', 'mantequilla']),
+    frozenset(['pan', 'mantequilla']),
+    frozenset(['leche', 'pan']),
+    frozenset(['leche', 'mantequilla']),
+    frozenset(['leche', 'pan', 'mantequilla']),
+    frozenset(['pan']),
+    frozenset(['leche', 'pan'])
+]
+
+min_confidence = 0.6
+```
+
+La función get_association_rules generará todas las posibles reglas de los itemsets frecuentes y calculará su confianza.
+Para el itemset {'leche', 'pan'}, las posibles reglas son {'leche'} -> {'pan'} y {'pan'} -> {'leche'}.
+Si la confianza de la regla {'leche'} -> {'pan'} es 0.8 (su soporte es 4 y el soporte de {'leche'} es 5), y cumple con el umbral de 0.6, entonces se incluirá en los resultados.
+
+```
+Reglas de asociación:
+{'leche'} -> {'pan'} (confianza: 0.80)
+{'pan'} -> {'leche'} (confianza: 0.80)
+```
+
+<li>Implemente una aplicación sencilla que haga uso de su implementación
+anterior</li>
+
+```
+from constraint import Problem
+from itertools import combinations
+import requests
+
+def get_subsets(transactions, min_support):
+    itemsets = {}
+    for transaction in transactions:
+        for i in range(1, len(transaction) + 1):
+            for subset in combinations(transaction, i):
+                subset = frozenset(subset)
+                if subset in itemsets:
+                    itemsets[subset] += 1
+                else:
+                    itemsets[subset] = 1
+    frequent_itemsets = {k: v for k, v in itemsets.items() if v >= min_support}
+    return frequent_itemsets
+
+# association rule
+def get_association_rules(frequent_itemsets, min_confidence, transactions):
+    rules = []
+    for itemset in frequent_itemsets:
+        if len(itemset) > 1:
+            for antecedent in combinations(itemset, len(itemset) - 1):
+                antecedent = frozenset(antecedent)
+                consequent = itemset - antecedent
+                antecedent_support = sum(1 for transaction in transactions if antecedent <= transaction)
+                confidence = frequent_itemsets[itemset] / antecedent_support
+                if confidence >= min_confidence:
+                    rules.append((antecedent, consequent, confidence))
+    return rules
+
+
+def read_transactions_from_url(url):
+    response = requests.get(url)
+    response.raise_for_status()
+    lines = response.text.strip().split('\n')
+    transactions = [line.strip().split(',') for line in lines]
+    return [frozenset(transaction) for transaction in transactions]
+
+
+if __name__ == "__main__":
+    url = 'https://raw.githubusercontent.com/PSCostaM/TA3_CC82_TopicsCs/master/transactions.txt'
+    transactions = read_transactions_from_url(url)
+    min_support = 2
+    min_confidence = 0.6
+
+    frequent_itemsets = get_subsets(transactions, min_support)
+    print("Itemsets frecuentes:", frequent_itemsets)
+
+    association_rules = get_association_rules(frequent_itemsets, min_confidence, transactions)
+    print("Reglas de asociación:")
+    for rule in association_rules:
+        print(f"{set(rule[0])} -> {set(rule[1])} (confianza: {rule[2]:.2f})")
+```
+
+<li>Output del código</li>
+
+![image](https://github.com/PSCostaM/TA3_CC82_TopicsCs/assets/48858434/ba4edd0c-9ebe-4eb8-9a20-482b3a590f86)
   
 </ul>
 </p>
