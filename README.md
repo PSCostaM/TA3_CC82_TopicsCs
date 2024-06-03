@@ -173,7 +173,8 @@ if __name__ == "__main__":
 
 </ul>
 </p>
-### Conclusiones
+
+### Conclusión
 
 <p align="justify">
  El proceso de resolución del problema implicó definir claramente los algoritmos necesarios para encontrar itemsets frecuentes y reglas de asociación, implementarlos en Python utilizando constraint programming, y crear una forma de leer datos desde una fuente remota. El uso de ejemplos y la explicación detallada de cada paso y algoritmo ayudan a comprender cómo funciona todo el sistema.
