@@ -170,6 +170,11 @@ if __name__ == "__main__":
 <li>Output del código</li>
 
 ![image](https://github.com/PSCostaM/TA3_CC82_TopicsCs/assets/48858434/ba4edd0c-9ebe-4eb8-9a20-482b3a590f86)
-  
+
 </ul>
+</p>
+### Conclusiones
+
+<p align="justify">
+ El proceso de resolución del problema implicó definir claramente los algoritmos necesarios para encontrar itemsets frecuentes y reglas de asociación, implementarlos en Python utilizando constraint programming, y crear una forma de leer datos desde una fuente remota. El uso de ejemplos y la explicación detallada de cada paso y algoritmo ayudan a comprender cómo funciona todo el sistema.
 </p>
