@@ -36,17 +36,18 @@ Para el desarrollo de este problema y la correcta implementación de constraint 
   ![image](https://github.com/PSCostaM/TA3_CC82_TopicsCs/assets/48858434/7cb4f34b-2167-4615-bae5-84c820ecdcfd) 
 
   <li>Explique su implementación itemsets frecuentes y proporcione ejemplos:</li>
+  
   ```
-      transactions = [
-        frozenset(['leche', 'pan', 'mantequilla']),
-        frozenset(['pan', 'mantequilla']),
-        frozenset(['leche', 'pan']),
-        frozenset(['leche', 'mantequilla']),
-        frozenset(['leche', 'pan', 'mantequilla']),
-        frozenset(['pan']),
-        frozenset(['leche', 'pan'])
-    ]
-    min_support = 2
+           transactions = [
+             frozenset(['leche', 'pan', 'mantequilla']),
+             frozenset(['pan', 'mantequilla']),
+             frozenset(['leche', 'pan']),
+             frozenset(['leche', 'mantequilla']),
+             frozenset(['leche', 'pan', 'mantequilla']),
+             frozenset(['pan']),
+             frozenset(['leche', 'pan'])
+           ]
+           min_support = 2
   ```
   Supongamos que tenemos las siguientes transacciones y un soporte mínimo de 2:
   La función get_subsets generará todos los posibles subconjuntos de cada transacción y contará su frecuencia. Filtrará los subconjuntos que aparecen al menos 2 veces.
