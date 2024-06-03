@@ -52,14 +52,14 @@ Para el desarrollo de este problema y la correcta implementación de constraint 
   La función get_subsets generará todos los posibles subconjuntos de cada transacción y contará su frecuencia. Filtrará los subconjuntos que aparecen al menos 2 veces.
   Devolverá un diccionario con los itemsets frecuentes y sus frecuencias:
   ```
-  {
-    frozenset({'leche'}): 4,
-    frozenset({'pan'}): 5,
-    frozenset({'mantequilla'}): 3,
-    frozenset({'leche', 'pan'}): 4,
-    frozenset({'leche', 'mantequilla'}): 2,
-    frozenset({'pan', 'mantequilla'}): 2
-}
+       {
+         frozenset({'leche'}): 4,
+         frozenset({'pan'}): 5,
+         frozenset({'mantequilla'}): 3,
+         frozenset({'leche', 'pan'}): 4,
+         frozenset({'leche', 'mantequilla'}): 2,
+         frozenset({'pan', 'mantequilla'}): 2
+     }
   ```
   Este diccionario muestra que el ítem "leche" aparece en 4 transacciones, "pan" en 5 transacciones, y así sucesivamente. Los subconjuntos como {'leche', 'pan'} aparecen en 4 transacciones, cumpliendo con el soporte mínimo especificado.
 
